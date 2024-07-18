@@ -1,27 +1,60 @@
 version: '3'
 services:
-  db:
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app
+      - FLASK_ENV=development
+    depends_on:
+      - redis
+
+  blog-service:
+    build: ./blog-service
+    ports:
+      - "5001:5000"
+    environment:
+      - FLASK_APP=app
+      - FLASK_ENV=development
+    depends_on:
+      - blog-db
+      - redis
+
+  image-service:
+    build: ./image-service
+    ports:
+      - "5002:5000"
+    environment:
+      - FLASK_APP=app
+      - FLASK_ENV=development
+    depends_on:
+      - redis
+
+  blog-db:
     image: postgres:13
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: blog_user
+      POSTGRES_PASSWORD: blog_password
+      POSTGRES_DB: blog_db
     ports:
       - "5432:5432"
+
   redis:
-    image: redis:6
+    image: redis:6-alpine
     ports:
       - "6379:6379"
-  auth_service:
-    build: ./auth-service
+
+  unittest-service:
+    build:
+      context: ./unittest-service
+      dockerfile: Dockerfile
     depends_on:
-      - db
-  blog_service:
-    build: ./blog-service
-    depends_on:
-      - db
+      - auth-service
+      - blog-service
+      - image-service
+      - blog-db
       - redis
-  image_service:
-    build: ./image-service
-    depends_on:
-      - db
-      - redis
+    environment:
+      - FLASK_APP=app
+      - FLASK_ENV=testing

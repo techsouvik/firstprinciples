@@ -85,3 +85,12 @@ docker-compose up --build
 ##### Image Service
 - POST /upload: Upload an image.
 - GET /images/{filename}: Retrieve an image by filename.
+
+## Future Prospects for Version-2 
+
+- Adding data validation
+- Use AWS Lambda, AWS SQS and API Gateway to link all the services
+- Adding Kafka as a throughput for uploading blogs and authenticating users
+- feature for uploading videos and download it in a adavtive bit-rate using HLS encoding
+- adding OAuth2 as an authentication inplace of JWT tokens
+
