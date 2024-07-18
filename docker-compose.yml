@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
+  auth_service:
+    build: ./auth-service
+    depends_on:
+      - db
+  blog_service:
+    build: ./blog-service
+    depends_on:
+      - db
+      - redis
+  image_service:
+    build: ./image-service
+    depends_on:
+      - db
+      - redis
