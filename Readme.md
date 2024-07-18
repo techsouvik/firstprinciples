@@ -48,27 +48,40 @@ The project uses Docker for containerization, PostgreSQL for the database, and R
 ```bash
 git clone https://github.com/your-username/blogging-platform.git
 cd blogging-platform
-Create a .env file in the root directory and set your environment variables:
-dotenv
-Copy code
-# .env
+```
+
+2. Create a .env file in the root directory and set your 
+
+```bash
+- environment variables:
+- dotenv
+```
+#### .env
+```bash
 AWS_ACCESS_KEY_ID=your_aws_access_key
 AWS_SECRET_ACCESS_KEY=your_aws_secret_key
 AWS_S3_BUCKET_NAME=your_s3_bucket_name
-Build and run the Docker containers:
-bash
-Copy code
+```
+
+3. Build and run the Docker containers:
+```bash
 docker-compose up --build
-Endpoints
-Auth Service
-POST /signup: Create a new user.
-POST /signin: Authenticate a user and get a token.
-Blog Service
-POST /posts: Create a new blog post.
-GET /posts: Retrieve a list of all blog posts.
-GET /posts/{id}: Retrieve a single blog post by its ID.
-PUT /posts/{id}: Update an existing blog post.
-DELETE /posts/{id}: Delete a blog post.
-Image Service
-POST /upload: Upload an image.
-GET /images/{filename}: Retrieve an image by filename.
+```
+
+### Endpoints
+##### Auth Service
+- POST /signup: Create a new user.
+- POST /signin: Authenticate a user and get a token.
+
+
+##### Blog Service
+- POST /posts: Create a new blog post.
+- GET /posts: Retrieve a list of all blog posts.
+- GET /posts/{id}: Retrieve a single blog post by its ID.
+- PUT /posts/{id}: Update an existing blog post.
+- DELETE /posts/{id}: Delete a blog post.
+
+
+##### Image Service
+- POST /upload: Upload an image.
+- GET /images/{filename}: Retrieve an image by filename.
